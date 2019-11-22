@@ -5,25 +5,25 @@ A Google Cloud Function that relays messages, via SMTP, that get posted from a s
 This function uses simple SMTP authorization with Gmail, but to allow that you need to enable _Less secure app access_ on the account. It's best to do this with a new account, not your primary one. To allow simple authorization, from within your Gmail account navigate to `Settings` → `Accounts and Import` → `Other Google Account settings` → `Security` → `Less Secure app access`.
 
 ## Setting up the Cloud Function
-On the Google Cloud Platform it's simple to add a new Cloud Function, really just point and click. I keep the memory allocation to 128 MB but note that Google considers that a _testing_ environment. I typically just copy and paste into the provided inline editor. The function to execute is `SendMessage`.
+On the Google Cloud Platform it's simple to add a new Cloud Function, really just point and click. I keep the memory allocation to 128 MB but note that Google considers this a _testing_ environment. I typically just copy and paste into the provided inline editor. The function to execute is `SendMessage`.
 
 There are several enviornment variables that you must add at this time:
 
-`RECAPTCHA_SECRET`: provided by your Recaptcha account (Version 2)
-`SMTP_ADDR`: for Gmail it's _smtp.gmail.com_
-`SMTP_PORT`: for Gmail it's _587_
-`SMTP_USER`: the email address that will be relaying messages for you
-`SMTP_PW`: password for the above email account
-`MAIL_TO`: where the messages will be relayed to, e.g. your primary inbox
+- `RECAPTCHA_SECRET`: provided by your Recaptcha account (Version 2)
+- `SMTP_ADDR`: for Gmail it's _smtp.gmail.com_
+- `SMTP_PORT`: for Gmail it's _587_
+- `SMTP_USER`: the email address that will be relaying messages for you
+- `SMTP_PW`: password for the above email account
+- `MAIL_TO`: where the messages will be relayed to, e.g. your primary inbox
 
 ## Posting to the function
 For my Vue.js app I `POST` to the endpoint that Google will provide for your Cloud Function. The request's body results in a JSON string like this:
 
 ```json
 {
-    "recaptcha": ...,
+    "recaptcha": "...",
     "name": "User's Name",
-    "replyTo": "users@email.address",
+    "replyTo": "user@email.address",
     "message": "Hello, world."
 }
 ```
