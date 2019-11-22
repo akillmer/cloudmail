@@ -17,7 +17,7 @@ There are several enviornment variables that you must add at this time:
 - `MAIL_TO`: where the messages will be relayed to, e.g. your primary inbox
 
 ## Posting to the function
-For my Vue.js app I `POST` to the endpoint that Google will provide for your Cloud Function. The request's body results in a JSON string like this:
+For my Vue.js app I `POST` to the endpoint that Google provides for the Cloud Function. The request's body results in a JSON string like this:
 
 ```json
 {
