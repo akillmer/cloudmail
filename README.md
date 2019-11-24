@@ -15,6 +15,7 @@ There are several enviornment variables that you must add at this time:
 - `SMTP_USER`: the email address that will be relaying messages for you
 - `SMTP_PW`: password for the above email account
 - `MAIL_TO`: where the messages will be relayed to, e.g. your primary inbox
+- `ALLOW_ORIGIN`: the allowed origin per CORS policy, e.g. _https://mixplate.io_
 
 ## Posting to the function
 For my Vue.js app I `POST` to the endpoint that Google will provide for your Cloud Function. The request's body results in a JSON string like this:

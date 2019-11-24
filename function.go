@@ -37,14 +37,24 @@ var (
 	smtpAddr        = os.Getenv("SMTP_ADDR")
 	smtpPort        = os.Getenv("SMTP_PORT")
 	mailTo          = os.Getenv("MAIL_TO")
+	allowOrigin     = os.Getenv("ALLOW_ORIGIN")
 )
 
 // SendMessage is the function exposed to the Cloud
 func SendMessage(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost {
+	if r.Method == http.MethodOptions {
+		w.Header().Set("Access-Control-Allow-Origin", allowOrigin)
+		w.Header().Set("Access-Control-Allow-Methods", "POST")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+		w.Header().Set("Access-Control-Max-Age", "3600")
+		w.WriteHeader(http.StatusNoContent)
+		return
+	} else if r.Method != http.MethodPost {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
+
+	w.Header().Set("Access-Control-Allow-Origin", allowOrigin)
 
 	// axios sends the payload in the request's body as a JSON string
 	var msg Message
